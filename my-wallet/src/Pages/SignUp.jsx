@@ -13,11 +13,10 @@ export default function Register() {
 
     function OnSubmit(e) {
         setDisabled(true);
-        postSignUp(signUp);
+        postSignUp(signUp, e);
         if(signUpSuccess === true){
             navigate('/');
         } else {
-            alert("Não foi possível finalizar seu cadastro. Por favor, tente novamente.");
             setDisabled(false);
         }
     }
@@ -26,43 +25,47 @@ export default function Register() {
         <Container>
             <Center>
                 <Logo> MYWALLET </Logo>
-                <Form onSubmit={OnSubmit}>
+                <Form onSubmit = {OnSubmit}>
                     <Input
-                        disabled={disabled}
-                        type="text"
-                        value={name}
-                        placeholder="Nome"
+                        disabled = {disabled}
+                        type = "text"
+                        value = {name}
+                        placeholder = "Nome"
                         required
-                        onChange={(e) => setSignUp({...signUp, name: e.target.value})}
+                        onChange = {(e) => setSignUp({...signUp, name: e.target.value})}
                     />
                     <Input
-                        disabled={disabled}
-                        type="email"
-                        value={email}
-                        placeholder="Email"
+                        disabled = {disabled}
+                        type = "email"
+                        value = {email}
+                        placeholder = "Email"
                         required
-                        onChange={(e) => setSignUp({...signUp, email: e.target.value})}
+                        onChange = {(e) => setSignUp({...signUp, email: e.target.value})}
                     />
                     <Input
-                        disabled={disabled}
-                        type="password"
-                        value={password}
-                        placeholder="Senha"
+                        disabled = {disabled}
+                        type = "password"
+                        value = {password}
+                        pattern = "(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[$_/*&@#])[0-9a-zA-Z$*&_/@#]{8,}"
+                        title = "A senha deve conter 8 caracterestes sendo: 1 número, 1 caractere especial e 1 letra maiúscula"
+                        placeholder = "Senha"
                         required
-                        onChange={(e) => setSignUp({...signUp, password: e.target.value})}
+                        onChange = {(e) => setSignUp({...signUp, password: e.target.value})}
                     />
                     <Input
-                        disabled={disabled}
-                        type="password"
-                        value={passwordConfirmed}
-                        placeholder="Confime a senha"
+                        disabled = {disabled}
+                        type = "password"
+                        value = {passwordConfirmed}
+                        pattern = {password}
+                        title = "Digite senhas iguais"
+                        placeholder = "Confime a senha"
                         required
-                        onChange={(e) => setSignUp({...signUp, passwordConfirmed: e.target.value})}
+                        onChange = {(e) => setSignUp({...signUp, passwordConfirmed: e.target.value})}
                     />
                     <Button disabled={disabled} type="submit">
                         <RenderButton state={disabled} text="Entrar"/>
                     </Button>
-                    <Link to="/">
+                    <Link to = "/">
                         <GoTo>Primeira vez? Cadastre-se!</GoTo>
                     </Link>
                 </Form >
