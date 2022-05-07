@@ -1,93 +1,73 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useState, useContext } from 'react';
-import axios from 'axios';
 import styled from 'styled-components';
-// import ImgLogo from "../Images/Logo.png";
 import RenderButton from "../Components/RenderButton";
 import { WalletContext } from "../Contexts";
 
 export default function Register() {
-    const { signUp, setSignUp, signUpSuccess, postSignUp } = useContext(WalletContext)
-    // const [ registerInfos, setRegisterInfos] = useState({
-    //     email: "", 
-    //     password: "",
-    //     fullname: "", 
-    //     photo: ""
-    // })
-    // const { email, password, fullname, photo } = registerInfos;
+    const { signUp, setSignUp, signUpSuccess, postSignUp } = useContext(WalletContext);
+    const { name, email, password, passwordConfirmed } = signUp;
     const [ disabled, setDisabled ] = useState(false);
 
     const navigate = useNavigate();
 
     function OnSubmit(e) {
-        setDisabled(true)
-        postSignUp(signUp)
+        setDisabled(true);
+        postSignUp(signUp);
         if(signUpSuccess === true){
-            navigate('/')
+            navigate('/');
         } else {
-            console.log("Não foi possível finalizar seu cadastro. Por favor, tente novamente.");
+            alert("Não foi possível finalizar seu cadastro. Por favor, tente novamente.");
             setDisabled(false);
         }
-        // e.preventDefault();
-        //     const promisse = axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/sign-up", {
-        //     email: email, 
-        //     name: fullname,
-        //     image: photo,
-        //     password: password, 
-        // })
-        // promisse.then(() => {navigate('/')})
-        // promisse.catch((warning) => {
-        //     console.log("Não foi possível finalizar seu cadastro. Por favor, tente novamente.");
-        //     setDisabled(false);
-        // });
     }
 
     return (
         <Container>
-        <Center>
-            {/* <Logo src={ImgLogo} alt="" /> */}
-            <Form onSubmit={OnSubmit}>
-                <Input
-                    disabled={disabled}
-                    type="text"
-                    value={fullname}
-                    placeholder="Nome"
-                    required
-                    onChange={(e) => setSignUp({...signUp, name: e.target.value})}
-                />
-                <Input
-                    disabled={disabled}
-                    type="email"
-                    value={email}
-                    placeholder="Email"
-                    required
-                    onChange={(e) => setSignUp({...signUp, email: e.target.value})}
-                />
-                <Input
-                    disabled={disabled}
-                    type="password"
-                    value={password}
-                    placeholder="Senha"
-                    required
-                    onChange={(e) => setSignUp({...signUp, password: e.target.value})}
-                />
-                <Input
-                    disabled={disabled}
-                    type="url"
-                    value={passwordConfirmed}
-                    placeholder="Confime a senha"
-                    required
-                    onChange={(e) => setSignUp({...signUp, passwordConfirmed: e.target.value})}
-                />
-                <Button disabled={disabled} type="submit">
-                    <RenderButton state={disabled} text="Entrar"/>
-                </Button>
-                <Link to="/">
-                    <GoTo>Já tem uma conta? Faça login!</GoTo>
-                </Link>
-            </Form >
-        </Center>
-    </Container>
+            <Center>
+                <Logo> MYWALLET </Logo>
+                <Form onSubmit={OnSubmit}>
+                    <Input
+                        disabled={disabled}
+                        type="text"
+                        value={name}
+                        placeholder="Nome"
+                        required
+                        onChange={(e) => setSignUp({...signUp, name: e.target.value})}
+                    />
+                    <Input
+                        disabled={disabled}
+                        type="email"
+                        value={email}
+                        placeholder="Email"
+                        required
+                        onChange={(e) => setSignUp({...signUp, email: e.target.value})}
+                    />
+                    <Input
+                        disabled={disabled}
+                        type="password"
+                        value={password}
+                        placeholder="Senha"
+                        required
+                        onChange={(e) => setSignUp({...signUp, password: e.target.value})}
+                    />
+                    <Input
+                        disabled={disabled}
+                        type="password"
+                        value={passwordConfirmed}
+                        placeholder="Confime a senha"
+                        required
+                        onChange={(e) => setSignUp({...signUp, passwordConfirmed: e.target.value})}
+                    />
+                    <Button disabled={disabled} type="submit">
+                        <RenderButton state={disabled} text="Entrar"/>
+                    </Button>
+                    <Link to="/">
+                        <GoTo>Primeira vez? Cadastre-se!</GoTo>
+                    </Link>
+                </Form >
+            </Center>
+        </Container>
     )
 }
 
@@ -98,7 +78,7 @@ const Container = styled.div`
     position: relative;
     display: flex;
     justify-content: center;
-    bottom: 50px;
+    background: #8F53BF;
 `
 const Center = styled.div`
     width: 80%;
@@ -108,9 +88,15 @@ const Center = styled.div`
     justify-content: center;
     flex-direction: column;
 `
-const Logo = styled.img`
-    width: 60%;
-    height: auto;
+const Logo = styled.h1`
+    font-family: 'Saira Stencil One', cursive;
+    width: 100%;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 32px;
+    color: white;
 `
 const Form = styled.form`
     width: 100%;
@@ -128,7 +114,7 @@ const Input = styled.input`
     padding-left: 10px;
     font-size: 20px;
     font-style: normal;
-    font-weight: 300;
+    font-weight: 400;
     line-height: 25px;
     letter-spacing: 0em;
     text-align: left;
@@ -137,14 +123,14 @@ const Button = styled.button`
     width: 100%;
     height: 50px;
     border-radius: 5px;
-    background: #52B6FF;
+    background: #A328D6;
     display: flex;
     align-items: center;
     justify-content: center;
     border: none;
     font-size: 21px;
     font-style: normal;
-    font-weight: 400;
+    font-weight: 700;
     line-height: 26px;
     color: white;
     cursor: pointer;
@@ -154,14 +140,15 @@ const Button = styled.button`
     cursor: default;
   }
 `
-
 const GoTo = styled.p`
     margin-top: 20px;
+    color: white;
+    text-decoration: none;
+    font-family: Raleway;
     font-size: 15px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 17px;
-    text-align: center;
-    color: #52B6FF;
-    text-decoration: underline;
+    font-weight: 700;
+    line-height: 18px;
+    letter-spacing: 0em;
+    text-align: left;
+
 `
