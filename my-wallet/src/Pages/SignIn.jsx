@@ -5,7 +5,7 @@ import RenderButton from "../Components/RenderButton";
 import { WalletContext } from "../Contexts";
 
 export default function Login() {
-    const { infosLogin, setInfosLogin, signInSuccess, postSignIn } = useContext(WalletContext);
+    const { infosLogin, setInfosLogin, signInSuccess, postSignIn, getRegisters, infosUser } = useContext(WalletContext);
     const { email, password } = infosLogin;
     const [ disabled, setDisabled ] = useState(false);
 
@@ -15,7 +15,8 @@ export default function Login() {
         setDisabled(true);
         postSignIn(infosLogin, e);
         if(signInSuccess === true){
-            navigate('/home');
+            getRegisters(infosUser.token)
+            navigate('/registers');
         } else {
             setDisabled(false);
         }
