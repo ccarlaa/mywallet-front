@@ -1,16 +1,31 @@
-// import { Link, useNavigate } from "react-router-dom";
-import { useState, useContext, useEffect } from 'react';
+import { Link, useNavigate } from "react-router-dom";
+import {  useContext } from 'react';
 import styled from 'styled-components';
 import { WalletContext } from "../Contexts";
 import Register from '../Components/Register';
 
 export default function Registers() {
     let value = 0;
-    const { infosUser, getRegisters, registerList } = useContext(WalletContext);
-    const { name, token } = infosUser; 
+    const { infosUser, registerList, setOperationType, setInfosLogin } = useContext(WalletContext);
+    const { name } = infosUser; 
+
+    const navigate = useNavigate();
 
     for(let i = 0; i < registerList.length; i++) {
-        value += parseFloat(registerList[i].value);
+        if(registerList[i].type === "entry"){
+            value += parseFloat(registerList[i].value)
+        } else {
+            value = value - parseFloat(registerList[i].value)
+        }
+    }
+    value = value.toFixed(2)
+
+    function CleanVariables() {
+        setInfosLogin({
+            email: "", 
+            password: ""
+        })
+        navigate('/')
     }
 
     return (
@@ -18,7 +33,7 @@ export default function Registers() {
             <Center>
                 <Header>
                     <h1>Olá, {name}</h1>
-                    <IonIcon>
+                    <IonIcon onClick={() => CleanVariables()}>
                         <ion-icon name="exit-outline"></ion-icon>
                     </IonIcon>
                 </Header>
@@ -38,18 +53,18 @@ export default function Registers() {
                     </RegisterMargin>
                 </RegistersList>
                 <OperationOptions>
-                    <EntryOperation>
+                    <Operation onClick={() => {setOperationType("entry"); navigate("/operation")}}>
                         <IonIcon>
                             <ion-icon name="add-circle-outline"></ion-icon>
                         </IonIcon>
-                        <h1>Nova entrada</h1>
-                    </EntryOperation>
-                    <ExitOperation>
+                        <H1>Nova entrada</H1>
+                    </Operation>
+                    <Operation onClick={() => {setOperationType("exit"); navigate("/operation")}}>
                         <IonIcon>
                             <ion-icon name="remove-circle-outline"></ion-icon>
                         </IonIcon>
-                        <h1>Nova saída</h1>
-                    </ExitOperation>
+                        <H1>Nova saída</H1>
+                    </Operation>
                 </OperationOptions>
             </Center>
         </Container>
@@ -59,24 +74,20 @@ export default function Registers() {
 
 const Container = styled.div`
     width: 100vw;
-    height: 100vh;
     background-color: white;
     position: relative;
     display: flex;
     justify-content: center;
-    background: #8F53BF;
+    background-color: #8F53BF;
 `
 const Center = styled.div`
     width: 90%;
-    height: auto;
     display: flex;
-    align-items: center;
-    justify-content: center;
     flex-direction: column;
 `
 const Header = styled.div`
     width: 100%;
-    height: 15%;
+    min-height: 8%;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -87,13 +98,12 @@ const Header = styled.div`
 `
 const RegistersList = styled.div`
     width: 100%;
-    height: 100%;
+    height: 40%;
     border-radius: 5px;
     background-color: white;
     display: flex;
     align-items: center;
     justify-content: center;
-    overflow: scroll;
 `
 const RegisterMargin = styled.div`
     width: 90%;
@@ -106,35 +116,27 @@ const RegisterMargin = styled.div`
 `
 const List = styled.div`
     width: 100%;
-    height: 80%;
+    height: 95%;
+    overflow: scroll;
 `
 const OperationOptions = styled.div`
     width: 100%;
-    height: 25%;
+    height: 12%;
     display: flex;
     justify-content: space-between;
     align-items: center;
 `
-const EntryOperation = styled.button`
-    width: 50%;
-    height: 80%;
-    border-radius: 5px;
-    border-style: none;
-    background-color: #A328D6;
-    padding: 10px;
-    margin-right: 10px;
-    display: flex;
-    flex-direction: column;
-    align-items: space-between;
-    justify-content: space-between;
+const H1 = styled.h1`
+    width: 125px;
+    text-align: left;
+    padding-top: 20px;
     font-size: 17px;
     font-weight: 700;
     line-height: 20px;
     color: white;
 `
-const ExitOperation = styled.button`
-    width: 50%;
-    height: 80%;
+const Operation = styled.div`
+    width: 47%;
     border-radius: 5px;
     border-style: none;
     background-color: #A328D6;
@@ -143,13 +145,10 @@ const ExitOperation = styled.button`
     flex-direction: column;
     align-items: space-between;
     justify-content: space-between;
-    font-size: 17px;
-    font-weight: 700;
-    line-height: 20px;
-    color: white;
 `
 const IonIcon = styled.h1`
     font-size: 30px;
+    color: white
 `
 const NoRegisters = styled.h2`
     color: #868686;

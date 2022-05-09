@@ -4,17 +4,22 @@ import styled from 'styled-components';
 import RenderButton from "../Components/RenderButton";
 import { WalletContext } from "../Contexts";
 
-export default function Login() {
-    const { infosLogin, setInfosLogin, signInSuccess, postSignIn } = useContext(WalletContext);
-    const { email, password } = infosLogin;
+export default function Operation() {
+    const { postOperation, newOperation, setNewOperation, postOperationSuccess, operationType } = useContext(WalletContext);
+    const { value, description, type } = newOperation;
     const [ disabled, setDisabled ] = useState(false);
 
     const navigate = useNavigate();
 
     function OnSubmit(e) {
         setDisabled(true);
-        postSignIn(infosLogin, e);
-        if(signInSuccess === true){
+        postOperation(newOperation, e);
+        if(postOperationSuccess === true){
+            setNewOperation({
+                value: "",
+                description: "",
+                type: "",
+            })
             navigate('/registers');
         } else {
             setDisabled(false);
@@ -24,33 +29,33 @@ export default function Login() {
     return (
         <Container>
             <Center>
-            <Logo> MYWALLET </Logo>
+            <Logo> Nova {operationType === "entry" ? "entrada" : "saída"} </Logo>
                 <Form onSubmit={OnSubmit} >
                     <Input
                         disabled={disabled}
-                        type="email"
-                        value={email}
-                        placeholder="email"
+                        type="text"
+                        value={value}
+                        placeholder="Valor"
+                        pattern = "[0-9]{0,10}[.]{1,1}[0-9]{0,2}"
+                        title = "Utilize ponto para separar as casas decimais"
                         required
-                        onChange={(e) => setInfosLogin({...infosLogin, email: e.target.value})}
+                        onChange={(e) => setNewOperation({...newOperation, value: e.target.value, type: operationType})}
                     />
                     <Input
                         disabled={disabled}
-                        type="password"
-                        value={password}
-                        placeholder="senha"
-                        pattern = "(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[$_/*&@#])[0-9a-zA-Z$*&_/@#]{8,}"
-                        title = "A senha deve conter 8 caracterestes sendo: 1 número, 1 caractere especial e 1 letra maiúscula"
+                        type="text"
+                        value={description}
+                        placeholder="Descrição"
                         required
-                        onChange={(e) => setInfosLogin({...infosLogin, password: e.target.value})}
+                        onChange={(e) => setNewOperation({...newOperation, description: e.target.value})}
                     />
                     <Button disabled={disabled} type="submit">
-                        <RenderButton state={disabled} text="Entrar"/>
+                        <RenderButton state={disabled} text={operationType === "entry" ? "Salvar entrada" : " Salvar saída"}/>
                     </Button>
                 </Form >
-                    <Link to="/sign-up">
-                        <GoTo>Não tem uma conta? Cadastre-se!</GoTo>
-                    </Link>
+                <Link to="/registers">
+                    <GoTo>Cancelar</GoTo>
+                </Link>
             </Center>
         </Container>
     )
@@ -71,7 +76,6 @@ const Center = styled.div`
     height: auto;
     display: flex;
     align-items: center;
-    justify-content: center;
     flex-direction: column;
 `
 const Logo = styled.h1`
@@ -79,7 +83,7 @@ const Logo = styled.h1`
     width: 100%;
     height: 100px;
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
     font-size: 32px;
     color: white;

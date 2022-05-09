@@ -18,6 +18,13 @@ export const WalletProvider = ({ children }) => {
     const [ signInSuccess, setSignInSuccess ] = useState(false)
     const [ infosUser, setInfosUser ] = useState()
     const [ registerList, setRegisterList ] = useState([])
+    const [ newOperation, setNewOperation ] = useState({
+        value: "",
+        description: "",
+        type: "",
+    })
+    const [ postOperationSuccess, setPostOperationSuccess ] = useState(false)
+    const [ operationType, setOperationType ] = useState("")
 
     const postSignUp = (signUp, e) => {
         e.preventDefault();
@@ -35,7 +42,7 @@ export const WalletProvider = ({ children }) => {
                 token: answer.data.token,
             }));
             setInfosUser(answer.data)
-            // getRegisters(answer.data.token);
+            getRegisters(answer.data.token);
             setSignInSuccess(true);
         })
         .catch((e) => window.confirm(e.response.data));
@@ -44,6 +51,17 @@ export const WalletProvider = ({ children }) => {
     const getRegisters = (token) => {
         axios.get("http://localhost:5000/register", {headers: {'Authorization': `Bearer ${token}`}})
         .then((answer) => setRegisterList(answer.data))
+        .catch((e) => window.confirm(e.response.data))
+    }
+
+    const postOperation = (newOperation, e) => {
+        e.preventDefault();
+        axios.post("http://localhost:5000/register", newOperation, {headers: {'Authorization': `Bearer ${infosUser.token}`}})
+        .then(() => {
+            setPostOperationSuccess(true);
+            getRegisters(infosUser.token);
+            console.log("deu bom")
+        })
         .catch((e) => window.confirm(e.response.data))
     }
 
@@ -60,7 +78,13 @@ export const WalletProvider = ({ children }) => {
                 postSignIn,
                 getRegisters,
                 infosUser,
-                registerList
+                registerList,
+                postOperation,
+                newOperation,
+                setNewOperation,
+                postOperationSuccess,
+                setOperationType,
+                operationType
             }}
         >
             { children }
