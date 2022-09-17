@@ -6,7 +6,7 @@ export default function Register(infos) {
             <Day>{infos.date}</Day>
             <Informations>
                 <Description>{infos.description}</Description>
-                <Value color={infos.type === "exit" ? "#C70000" : "#03AC00"}>{infos.value}</Value>           
+                <Value color={infos.type === "exit" ? "#C70000" : "#03AC00"}>R$ {infos.value}</Value>           
             </Informations>
         </OneRegister>
     )
@@ -39,6 +39,9 @@ const Description = styled.p`
     line-height: 19px;
 `
 const Value = styled.p`
+    width: 100px;
+    display: flex;
+    justify-content: flex-end;
     text-align: left;
     font-size: 16px;
     font-weight: 400;

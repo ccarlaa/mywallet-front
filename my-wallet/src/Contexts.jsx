@@ -1,35 +1,33 @@
-import React, { createContext, useEffect, useState } from 'react';
+import React, { createContext, useState } from 'react';
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 export const WalletContext = createContext({});
 
 export const WalletProvider = ({ children }) => {
+    const navigate = useNavigate();
+
     const [ signUp, setSignUp ] = useState({
         name: "",
         email: "",
         password: "",
         passwordConfirmed: "",
     })
-    const [ signUpSuccess, setSignUpSuccess ] = useState(false);
     const [ infosLogin, setInfosLogin ] = useState({
         email: "", 
         password: "",
     });
-    const [ signInSuccess, setSignInSuccess ] = useState(false)
-    const [ infosUser, setInfosUser ] = useState()
     const [ registerList, setRegisterList ] = useState([])
     const [ newOperation, setNewOperation ] = useState({
         value: "",
         description: "",
         type: "",
     })
-    const [ postOperationSuccess, setPostOperationSuccess ] = useState(false)
-    const [ operationType, setOperationType ] = useState("")
-
+    
     const postSignUp = (signUp, e) => {
         e.preventDefault();
         axios.post("http://localhost:5000/sign-up", signUp)
-        .then(() => setSignUpSuccess(true))
+        .then(() => navigate('/'))
         .catch((e) => window.confirm(e.response.data))
     }
 
@@ -41,9 +39,7 @@ export const WalletProvider = ({ children }) => {
                 name: answer.data.name,
                 token: answer.data.token,
             }));
-            setInfosUser(answer.data)
-            getRegisters(answer.data.token);
-            setSignInSuccess(true);
+            navigate("/registers")
         })
         .catch((e) => window.confirm(e.response.data));
     }
@@ -54,13 +50,11 @@ export const WalletProvider = ({ children }) => {
         .catch((e) => window.confirm(e.response.data))
     }
 
-    const postOperation = (newOperation, e) => {
+    const postOperation = (newOperation, e, token) => {
         e.preventDefault();
-        axios.post("http://localhost:5000/register", newOperation, {headers: {'Authorization': `Bearer ${infosUser.token}`}})
+        axios.post("http://localhost:5000/register", newOperation, {headers: {'Authorization': `Bearer ${token}`}})
         .then(() => {
-            setPostOperationSuccess(true);
-            getRegisters(infosUser.token);
-            console.log("deu bom")
+            navigate('/registers');
         })
         .catch((e) => window.confirm(e.response.data))
     }
@@ -70,21 +64,15 @@ export const WalletProvider = ({ children }) => {
             value = {{
                 signUp,
                 setSignUp,
-                signUpSuccess,
                 postSignUp,
                 infosLogin,
                 setInfosLogin,
-                signInSuccess,
                 postSignIn,
                 getRegisters,
-                infosUser,
                 registerList,
                 postOperation,
                 newOperation,
                 setNewOperation,
-                postOperationSuccess,
-                setOperationType,
-                operationType
             }}
         >
             { children }

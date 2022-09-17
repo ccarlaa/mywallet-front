@@ -9,17 +9,17 @@ import Operation from "./Pages/Operation";
 export default function App() {
     return (
         <>
-        <WalletProvider>
             <GlobalStyle />
                 <BrowserRouter>
-                    <Routes>
-                        <Route path = "/" element = {<SignIn />} />
-                        <Route path = "/sign-up" element = {<SignUp />} />
-                        <Route path = "/registers" element = {<Registers />} />
-                        <Route path = "/operation" element = {<Operation />} />
-                    </Routes>
+                    <WalletProvider>
+                        <Routes>
+                            <Route path = "/" element = {<SignIn />} />
+                            <Route path = "/sign-up" element = {<SignUp />} />
+                            <Route path = "/registers" element = {<Registers />} />
+                            <Route path = "/operation" element = {<Operation />} />
+                        </Routes>
+                    </WalletProvider>
                 </BrowserRouter>
-        </WalletProvider>
         </>
     )
 }

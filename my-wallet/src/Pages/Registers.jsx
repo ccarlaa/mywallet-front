@@ -1,13 +1,15 @@
 import { Link, useNavigate } from "react-router-dom";
-import {  useContext } from 'react';
+import {  useContext, useEffect } from 'react';
 import styled from 'styled-components';
 import { WalletContext } from "../Contexts";
 import Register from '../Components/Register';
 
 export default function Registers() {
     let value = 0;
-    const { infosUser, registerList, setOperationType, setInfosLogin } = useContext(WalletContext);
-    const { name } = infosUser; 
+    const { getRegisters, registerList, setInfosLogin, setNewOperation } = useContext(WalletContext);
+    const user =  localStorage.getItem('user');
+    const token = JSON.parse(user).token;
+    const name = JSON.parse(user).name;
 
     const navigate = useNavigate();
 
@@ -18,6 +20,7 @@ export default function Registers() {
             value = value - parseFloat(registerList[i].value)
         }
     }
+
     value = value.toFixed(2)
 
     function CleanVariables() {
@@ -25,7 +28,32 @@ export default function Registers() {
             email: "", 
             password: ""
         })
-        navigate('/')
+
+        localStorage.setItem("user", JSON.stringify({
+            name: null,
+            token: null,
+        }));
+
+        localStorage.setItem("type", JSON.stringify({
+            type: null,
+        }));
+
+        navigate('/');
+    }
+
+    useEffect(() => {
+        getRegisters(token);
+        setNewOperation({
+            value: "",
+            description: "",
+            type: "",
+        });
+    },[])
+
+    function SetOperationType(operationType) {
+        localStorage.setItem("type", JSON.stringify({
+            type: operationType,
+        }));
     }
 
     return (
@@ -41,25 +69,33 @@ export default function Registers() {
                     <RegisterMargin justify = {registerList.length > 0 ? "flex-start" : "center"}>
                         <List>
                         {registerList.length > 0 ?
-                            registerList.map((register) => {return (
-                                <Register value={register.value} description={register.description} type={register.type} date={register.date}/>)}) : 
-                            <NoRegisters>Não há registros deentrada ou saída </NoRegisters>
+                            registerList.map((register) => {
+                                return (
+                                    <Register 
+                                        value={register.value.replace(".", ",")} 
+                                        description={register.description} 
+                                        type={register.type} 
+                                        date={register.date}
+                                    />
+                                )
+                            }) : 
+                                <NoRegisters>Não há registros de entrada ou saída </NoRegisters>
                         }
                         </List>
                         <Amount>
                             <h1>SALDO</h1>
-                            <Value color = {value > 0 ? "#03AC00" : "#C70000"}>{value}</Value>
+                            <Value color = {value > 0 ? "#03AC00" : "#C70000"}>R$ {value.replace(".", ",")}</Value>
                         </Amount>
                     </RegisterMargin>
                 </RegistersList>
                 <OperationOptions>
-                    <Operation onClick={() => {setOperationType("entry"); navigate("/operation")}}>
+                    <Operation onClick={() => {SetOperationType("entry"); navigate("/operation")}}>
                         <IonIcon>
                             <ion-icon name="add-circle-outline"></ion-icon>
                         </IonIcon>
                         <H1>Nova entrada</H1>
                     </Operation>
-                    <Operation onClick={() => {setOperationType("exit"); navigate("/operation")}}>
+                    <Operation onClick={() => {SetOperationType("exit"); navigate("/operation")}}>
                         <IonIcon>
                             <ion-icon name="remove-circle-outline"></ion-icon>
                         </IonIcon>
@@ -74,6 +110,7 @@ export default function Registers() {
 
 const Container = styled.div`
     width: 100vw;
+    height: 100vh;
     background-color: white;
     position: relative;
     display: flex;
@@ -98,7 +135,7 @@ const Header = styled.div`
 `
 const RegistersList = styled.div`
     width: 100%;
-    height: 40%;
+    height: 73%;
     border-radius: 5px;
     background-color: white;
     display: flex;
@@ -120,8 +157,10 @@ const List = styled.div`
     overflow: scroll;
 `
 const OperationOptions = styled.div`
-    width: 100%;
-    height: 12%;
+    width: 90%;
+    height: 18%;
+    position: fixed;
+    bottom: 0;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -136,7 +175,7 @@ const H1 = styled.h1`
     color: white;
 `
 const Operation = styled.div`
-    width: 47%;
+    width: 48%;
     border-radius: 5px;
     border-style: none;
     background-color: #A328D6;

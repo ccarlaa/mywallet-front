@@ -1,29 +1,33 @@
 import { Link, useNavigate } from "react-router-dom";
-import { useState, useContext } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import styled from 'styled-components';
 import RenderButton from "../Components/RenderButton";
 import { WalletContext } from "../Contexts";
 
 export default function Operation() {
-    const { postOperation, newOperation, setNewOperation, postOperationSuccess, operationType } = useContext(WalletContext);
+    const { postOperation, newOperation, setNewOperation } = useContext(WalletContext);
     const { value, description, type } = newOperation;
     const [ disabled, setDisabled ] = useState(false);
 
-    const navigate = useNavigate();
+    const user =  localStorage.getItem('user');
+    const token = JSON.parse(user).token;
+    const operation =  localStorage.getItem('type');
+    const operationType = JSON.parse(operation).type;
+    console.log(operationType)
+
+    function CleanVariables() {
+        setNewOperation({
+            value: "",
+            description: "",
+            type: "",
+        })
+    }
 
     function OnSubmit(e) {
         setDisabled(true);
-        postOperation(newOperation, e);
-        if(postOperationSuccess === true){
-            setNewOperation({
-                value: "",
-                description: "",
-                type: "",
-            })
-            navigate('/registers');
-        } else {
-            setDisabled(false);
-        }
+        postOperation(newOperation, e, token);
+        setDisabled(false);
+        CleanVariables();
     }
 
     return (
@@ -37,9 +41,9 @@ export default function Operation() {
                         value={value}
                         placeholder="Valor"
                         pattern = "[0-9]{0,10}[.]{1,1}[0-9]{0,2}"
-                        title = "Utilize ponto para separar as casas decimais"
+                        title = "Utilize vírgula para separar as casas decimais"
                         required
-                        onChange={(e) => setNewOperation({...newOperation, value: e.target.value, type: operationType})}
+                        onChange={(e) => setNewOperation({...newOperation, value: e.target.value.replace(",", "."), type: operationType})}
                     />
                     <Input
                         disabled={disabled}
@@ -59,8 +63,8 @@ export default function Operation() {
             </Center>
         </Container>
     )
-
 }
+
 
 const Container = styled.div`
     width: 100vw;

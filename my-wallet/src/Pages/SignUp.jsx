@@ -1,5 +1,5 @@
 import { Link, useNavigate } from "react-router-dom";
-import { useState, useContext } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import styled from 'styled-components';
 import RenderButton from "../Components/RenderButton";
 import { WalletContext } from "../Contexts";
@@ -9,16 +9,10 @@ export default function Register() {
     const { name, email, password, passwordConfirmed } = signUp;
     const [ disabled, setDisabled ] = useState(false);
 
-    const navigate = useNavigate();
-
     function OnSubmit(e) {
         setDisabled(true);
         postSignUp(signUp, e);
-        if(signUpSuccess === true){
-            navigate('/');
-        } else {
-            setDisabled(false);
-        }
+        setDisabled(false);
     }
 
     return (
