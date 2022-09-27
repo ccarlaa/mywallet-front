@@ -2,6 +2,8 @@
 
 <p>Controle de gastos.</p>
 
+<p>Meu primeiro projeto full-stack! :smiling_face_with_three_hearts:</p>
+
 <img src=my-wallet/src/Images/myWallet.gif  width="300" />
 
 ## 📝 Sobre
