@@ -1,4 +1,4 @@
-  ## ⚡️ My Wallet
+  ## ⚡️ My Wallet (front-end)
 
 <p>Controle de gastos.</p>
 
@@ -8,7 +8,7 @@
 
 ## 📝 Sobre
 
-<p>A aplicação visa realizar o controle de gastas do usuário, mostrando entradas e saídas e o saldo final.
+<p align = "justify" >A aplicação visa realizar o controle de gastas do usuário, mostrando entradas e saídas e o saldo final.
 Esse repositório possui os códigos do front-end da aplicação, o qual
 foi feito com as seguintes tecnologias: CSS, Styled-components, HTML, Javascript e React.
 </p>
