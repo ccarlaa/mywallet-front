@@ -41,7 +41,7 @@ export default function Operation() {
                         value={value}
                         placeholder="Valor"
                         pattern = "[0-9]{0,10}[.]{1,1}[0-9]{0,2}"
-                        title = "Utilize vírgula para separar as casas decimais"
+                        title = "Utilize apenas números e ponto para separar as casas decimais"
                         required
                         onChange={(e) => setNewOperation({...newOperation, value: e.target.value.replace(",", "."), type: operationType})}
                     />

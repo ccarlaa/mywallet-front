@@ -5,6 +5,8 @@ import { useNavigate } from "react-router-dom";
 export const WalletContext = createContext({});
 
 export const WalletProvider = ({ children }) => {
+    const URL = process.env.REACT_APP_DATABASE_URL;
+    console.log(URL)
     const navigate = useNavigate();
 
     const [ signUp, setSignUp ] = useState({
@@ -26,14 +28,14 @@ export const WalletProvider = ({ children }) => {
     
     const postSignUp = (signUp, e) => {
         e.preventDefault();
-        axios.post("http://localhost:5000/sign-up", signUp)
+        axios.post(`${URL}`+ "/sign-up", signUp)
         .then(() => navigate('/'))
         .catch((e) => window.confirm(e.response.data))
     }
 
     const postSignIn = (infosLogin, e) => {
         e.preventDefault();
-        axios.post("http://localhost:5000/sign-in", infosLogin)
+        axios.post(`${URL}`+ "/sign-in", infosLogin)
         .then((answer) => {
             localStorage.setItem("user", JSON.stringify({
                 name: answer.data.name,
@@ -45,14 +47,14 @@ export const WalletProvider = ({ children }) => {
     }
 
     const getRegisters = (token) => {
-        axios.get("http://localhost:5000/register", {headers: {'Authorization': `Bearer ${token}`}})
+        axios.get(`${URL}`+ "/register", {headers: {'Authorization': `Bearer ${token}`}})
         .then((answer) => setRegisterList(answer.data))
         .catch((e) => window.confirm(e.response.data))
     }
 
     const postOperation = (newOperation, e, token) => {
         e.preventDefault();
-        axios.post("http://localhost:5000/register", newOperation, {headers: {'Authorization': `Bearer ${token}`}})
+        axios.post(`${URL}`+ "/register", newOperation, {headers: {'Authorization': `Bearer ${token}`}})
         .then(() => {
             navigate('/registers');
         })
