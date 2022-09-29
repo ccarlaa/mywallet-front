@@ -6,7 +6,6 @@ export const WalletContext = createContext({});
 
 export const WalletProvider = ({ children }) => {
     const URL = process.env.REACT_APP_DATABASE_URL;
-    console.log(URL)
     const navigate = useNavigate();
 
     const [ signUp, setSignUp ] = useState({
