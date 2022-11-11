@@ -6,6 +6,8 @@
 
 <img src=my-wallet/src/Images/myWallet.gif  width="300" />
 
+<a href="https://mywallet-front-iota.vercel.app/" target="_blank" rel="noopener noreferrer">My Wallet</a>
+
 ## 📝 Sobre
 
 <p align = "justify" >A aplicação visa realizar o controle de gastas do usuário, mostrando entradas e saídas e o saldo final.
