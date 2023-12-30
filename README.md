@@ -6,7 +6,7 @@
 
 <img src=my-wallet/src/Images/myWallet.gif  width="300" />
 
-<a href="https://mywallet-front-iota.vercel.app/" target="_blank" rel="noopener noreferrer">My Wallet</a>
+<a href="https://mywallet-front-sandy.vercel.app/" target="_blank" rel="noopener noreferrer">My Wallet</a>
 
 ## 📝 Sobre
 
