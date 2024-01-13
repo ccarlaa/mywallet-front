@@ -1,5 +1,5 @@
-[**Portuguese**](#moneybag-my-wallet)
-[**English**](#moneybag-minha-carteira).
+[**English**](#moneybag-my-wallet)
+[**Portuguese**](#moneybag-minha-carteira)
 
 ## :moneybag: My Wallet
 
