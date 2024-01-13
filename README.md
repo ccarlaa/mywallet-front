@@ -1,17 +1,15 @@
 [**English**](#moneybag-my-wallet)
-[**Portuguese**](#moneybag-minha-carteira)
+[**Portuguese**](#-sobre)
 
 ## :moneybag: My Wallet
-
-<p>Expense management.</p>
-
-<p>My first full-stack project! :smiling_face_with_three_hearts:</p>
 
 <img src=my-wallet/src/Images/myWallet.gif  width="300" />
 
 <a href="https://mywallet-front-sandy.vercel.app/" target="_blank" rel="noopener noreferrer">My Wallet</a>
 
 ## 📝 About
+
+<p>My first full-stack project! :smiling_face_with_three_hearts:</p>
 
 <p align="justify">The application aims to control user expenses, showing income and expenses along with the final balance. This repository contains the front-end code of the application, which was built using the following technologies: CSS, Styled-components, HTML, Javascript, and React.
 </p>
@@ -37,29 +35,22 @@ npm install
 5. To run de project,execute:
 
 ```bash
-npm start
-```
+npm startmoneybag-minha-carteira
+``` 
 
-Finally, access http://localhost:3000 in your browser.
+6. Finally, access http://localhost:3000 in your browser.
 
 Note: Don't forget to run the [back-end](https://github.com/ccarlaa/mywallet-back) of the application alongside.
 
- ## :moneybag: Minha Carteira
-
-<p>Controle de gastos.</p>
+***
+## 📝 Sobre
 
 <p>Meu primeiro projeto full-stack! :smiling_face_with_three_hearts:</p>
-
-<img src=my-wallet/src/Images/myWallet.gif  width="300" />
-
-<a href="https://mywallet-front-sandy.vercel.app/" target="_blank" rel="noopener noreferrer">My Wallet</a>
-
-## 📝 Sobre
 
 <p align = "justify" >A aplicação visa realizar o controle de gastas do usuário, mostrando entradas e saídas e o saldo final.
 Esse repositório possui os códigos do front-end da aplicação, o qual
 foi feito com as seguintes tecnologias: CSS, Styled-components, HTML, Javascript e React.
-</p>Conteúdo
+</p>
 
 [![My Skills](https://skills.thijs.gg/icons?i=html,css,javascript,react,styledcomponents&theme=light)](https://skills.thijs.gg)
 
