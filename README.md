@@ -1,7 +1,50 @@
-[**Português**](#-acesso-ao-projeto)
-[**Conteúdo B**](#conteudo-b)
-  
- ## ⚡️ My Wallet (front-end)
+[**Portuguese**](#moneybag-my-wallet)
+[**English**](#moneybag-minha-carteira).
+
+## :moneybag: My Wallet
+
+<p>Expense management.</p>
+
+<p>My first full-stack project! :smiling_face_with_three_hearts:</p>
+
+<img src=my-wallet/src/Images/myWallet.gif  width="300" />
+
+<a href="https://mywallet-front-sandy.vercel.app/" target="_blank" rel="noopener noreferrer">My Wallet</a>
+
+## 📝 About
+
+<p align="justify">The application aims to control user expenses, showing income and expenses along with the final balance. This repository contains the front-end code of the application, which was built using the following technologies: CSS, Styled-components, HTML, Javascript, and React.
+</p>
+
+[![My Skills](https://skills.thijs.gg/icons?i=html,css,javascript,react,styledcomponents&theme=light)](https://skills.thijs.gg)
+
+## 📁 Project Access
+
+You can [access the project's source code](https://github.com/ccarlaa/mywallet-front) or [download it](https://github.com/ccarlaa/mywallet-front/archive/refs/heads/main.zip).
+
+## 🛠️ Open and Run the Project
+
+After downloading the project, you can open it with Visual Studio Code. To do this, click on:
+
+1. File > Open Folder
+2. Locate the project's location and select it (If the project is downloaded as a zip file, it needs to be extracted before locating it.)
+3. Finally, click Open
+4. Then open the terminal and install the dependencies with the following command:
+
+```bash
+npm install 
+```
+5. To run de project,execute:
+
+```bash
+npm start
+```
+
+Finally, access http://localhost:3000 in your browser.
+
+Note: Don't forget to run the [back-end](https://github.com/ccarlaa/mywallet-back) of the application alongside.
+
+ ## :moneybag: Minha Carteira
 
 <p>Controle de gastos.</p>
 
@@ -16,7 +59,7 @@
 <p align = "justify" >A aplicação visa realizar o controle de gastas do usuário, mostrando entradas e saídas e o saldo final.
 Esse repositório possui os códigos do front-end da aplicação, o qual
 foi feito com as seguintes tecnologias: CSS, Styled-components, HTML, Javascript e React.
-</p>
+</p>Conteúdo
 
 [![My Skills](https://skills.thijs.gg/icons?i=html,css,javascript,react,styledcomponents&theme=light)](https://skills.thijs.gg)
 
