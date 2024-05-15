@@ -1,4 +1,3 @@
-[**English**](#moneybag-my-wallet)
 [**Português**](#-sobre)
 
 ## :moneybag: My Wallet
