@@ -52,7 +52,7 @@ Esse repositório possui os códigos do front-end da aplicação, o qual
 foi feito com as seguintes tecnologias: CSS, Styled-components, HTML, Javascript e React.
 </p>
 
-[![My Skills](https://skills.thijs.gg/icons?i=html,css,javascript,react,styledcomponents&theme=light)](https://skills.thijs.gg)
+[![My Skills](https://skillicons.dev/icons?i=html,css,javascript,react,styledcomponents&theme=light)](https://skillicons.dev)
 
 ## 📁 Acesso ao projeto
 
